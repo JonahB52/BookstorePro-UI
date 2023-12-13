@@ -6,9 +6,6 @@
 using namespace std;
 
 class Manager {
-
-
-
 public:
 void menu() {
     while (true) {
@@ -317,21 +314,17 @@ void UseQueries() {
     while (true) {
         cout << endl;
         cout << "* Manager Queries *" << endl;
-        cout << "1. Find books by Author" << endl;
-        cout << "2. Search reviews by book name" << endl;
+        cout << "1. List book, author, and review count for the book with the highest price and most reviews" << endl;
+        cout << "2. List customers who have reviewed book by book name" << endl;
         cout << endl;
         cout << "3. Back" << endl;
 
         string str;
         getline(cin, str);
         int choice = atoi(str.c_str());
-
         if (choice == 1) {
-            cout << "* Find books by Author *" << endl;
-            cout << "Enter Author Name: ";
-            string userInput;
-            getline(cin, userInput);
-            sql.WriteFile("SELECT B.Name AS BookName, P.Name AS PublisherName FROM BOOK B JOIN AUTHOR A ON B.Aname = A.Name JOIN PUBLISHER P ON B.Pname = P.Name WHERE A.Name = '" + userInput + "';");
+            cout << "* List book, author, and review count for the book with the highest price and most reviews *" << endl;
+            sql.WriteFile("SELECT BookName, AuthorName, MaxPrice, ReviewCount FROM (SELECT B.Name AS BookName, A.Name AS AuthorName, B.Price AS MaxPrice, COUNT(R.ReviewID) AS ReviewCount FROM BOOK B JOIN REVIEWS R ON B.BookID = R.BookID JOIN AUTHOR A ON B.Aname = A.Name GROUP BY B.BookID ORDER BY MaxPrice DESC, ReviewCount DESC LIMIT 1) AS MaxBookInfo;");
             sql.ReadFile();
         } else if (choice == 2) {
             cout << "* List customers who have reviewed book by book name *" << endl;
@@ -341,6 +334,74 @@ void UseQueries() {
             sql.WriteFile("SELECT C.Name AS CustomerName, R.Date AS ReviewDate, R.Comment AS ReviewComment FROM CUSTOMER C JOIN REVIEWS R ON C.CustomerID = R.CustomerID JOIN BOOK B ON R.BookID = B.BookID WHERE B.Name = '" + userInput + "';");
             sql.ReadFile();
         } else if (choice == 3) {
+            return;
+        } else {
+            cout << "Invalid choice. Please try again." << endl;
+        }
+    }
+}
+
+private:
+    mySQLInterface sql;
+};
+
+class Employee {
+public:
+void menu() {
+    while (true) {
+        cout << endl;
+        cout << "*** Employee Menu ***" << endl;
+        cout << "1. Lists customers who have reviewed book by book name" << endl;
+        cout << endl;
+        cout << "2. Back" << endl;
+        cout << endl;
+
+        string str;
+        getline(cin, str);
+        int choice = atoi(str.c_str());
+
+        if (choice == 1) { // View
+            cout << "* Find customers who have reviewed book by book name *" << endl;
+            cout << "Enter Book Name: ";
+            string userInput;
+            getline(cin, userInput);
+            sql.WriteFile("SELECT B.Name AS BookName, C.Name AS CustomerName FROM BOOK B JOIN REVIEWS R ON B.BookID = R.BookID JOIN CUSTOMER C ON R.CustomerID = C.CustomerID WHERE B.Name = '" + userInput + "' GROUP BY B.Name, C.Name;");
+            sql.ReadFile();
+        } else if (choice == 2) { // Back
+            return;
+        } else {
+            cout << "Invalid choice. Please try again." << endl;
+        }
+    }
+}
+
+private:
+    mySQLInterface sql;
+};
+
+class Customer {
+public:
+void menu() {
+    while (true) {
+        cout << endl;
+        cout << "*** Customer Menu ***" << endl;
+        cout << "1. Search books and publishers by Author" << endl;
+        cout << endl;
+        cout << "2. Back" << endl;
+        cout << endl;
+
+        string str;
+        getline(cin, str);
+        int choice = atoi(str.c_str());
+        if (choice == 1) { // View
+            cout << "* Find books and publishers by Author *" << endl;
+            cout << "Enter Author Name: ";
+            string userInput;
+            getline(cin, userInput);
+            sql.WriteFile("SELECT B.Name AS BookName, P.Name AS PublisherName FROM BOOK B JOIN AUTHOR A ON B.Aname = A.Name JOIN PUBLISHER P ON B.Pname = P.Name WHERE A.Name = '" + userInput + "';");
+            sql.ReadFile();
+        } else if (choice == 2) { // Back
+            cout << "back called" << endl;
             return;
         } else {
             cout << "Invalid choice. Please try again." << endl;

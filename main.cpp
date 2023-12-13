@@ -1,6 +1,6 @@
 #include <iostream>
 #include <thread> // Add this line to include the <thread> header
-#include "manager.h"
+#include "usertypes.h"
 
 using namespace std;
 
@@ -27,9 +27,11 @@ void mainMenu() {
             Manager manager; // Create a Manager object
             manager.menu(); // Initialize the Manager object inside the if statement
         } else if (choice == 2) {
-            cout << "Employee menu" << endl;
+            Employee employee; // Create an Employee object
+            employee.menu(); // Initialize the Employee object inside the if statement
         } else if (choice == 3) {
-            cout << "Customer menu" << endl;
+            Customer customer; // Create a Customer object
+            customer.menu(); // Initialize the Customer object inside the if statement
         } else if (choice == 4) {
             return;
         } else {
