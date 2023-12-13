@@ -40,6 +40,7 @@ void menu() {
     }
 }
 
+// Choose to view a whole table or use a query
 void ViewCommands() {
     while (true) {
         cout << endl;
@@ -66,6 +67,7 @@ void ViewCommands() {
     }
 }
 
+// Adding data to tables as manager
 void AddCommands() {
     while (true) {
         cout << endl;
@@ -155,6 +157,7 @@ void AddCommands() {
     }
 }
 
+// Updating data from tables as manager
 void UpdateCommands() {
     while (true) {
         cout << endl;
@@ -217,6 +220,7 @@ void UpdateCommands() {
     }
 }
 
+// Deleting data from tables as manager
 void DeleteCommands() {
     while (true) {
         cout << endl;
@@ -251,6 +255,7 @@ void DeleteCommands() {
     }
 }
 
+// Viewing all data fromm a specific table as manager
 void ViewTable() {
     while (true) {
         cout << endl;
@@ -310,6 +315,7 @@ void ViewTable() {
     }
 }
 
+// Queries for viewing data as a manager
 void UseQueries() {
     while (true) {
         cout << endl;
@@ -347,6 +353,8 @@ private:
 
 class Employee {
 public:
+
+// Employee menu
 void menu() {
     while (true) {
         cout << endl;
@@ -381,6 +389,7 @@ private:
 
 class Customer {
 public:
+// Customer menu
 void menu() {
     while (true) {
         cout << endl;
@@ -389,10 +398,11 @@ void menu() {
         cout << endl;
         cout << "2. Back" << endl;
         cout << endl;
-
+        
         string str;
         getline(cin, str);
         int choice = atoi(str.c_str());
+
         if (choice == 1) { // View
             cout << "* Find books and publishers by Author *" << endl;
             cout << "Enter Author Name: ";

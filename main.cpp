@@ -19,6 +19,7 @@ void mainMenu() {
         cout << endl;
         cout << "4. Exit" << endl;
 
+        // Take user input
         string str;
         getline(cin, str);
         int choice = atoi(str.c_str());
