@@ -31,9 +31,9 @@ void menu() {
         } else if (choice == 2) { // Add
             AddCommands();
         } else if (choice == 3) { // Update
-            //UpdateCommands();
+            UpdateCommands();
         } else if (choice == 4) { // Delete
-            //DeleteCommands();
+            DeleteCommands();
         } else if (choice == 5) { // Back
             cout << "back called" << endl;
             return;
@@ -76,8 +76,9 @@ void AddCommands() {
         cout << "1. Add new Customer" << endl;
         cout << "2. Add new Employee" << endl;
         cout << "3. Add new Book" << endl;
+        cout << "4. Add new Employee Shift" << endl;
         cout << endl;
-        cout << "4. Back" << endl;
+        cout << "5. Back" << endl;
         cout << endl;
 
         string str;
@@ -96,6 +97,159 @@ void AddCommands() {
             string cardType;
             getline(cin, cardType);
             sql.WriteFile("INSERT INTO CUSTOMER (Name, Shipping_information, Payment_method) VALUES ('" + name + "', '" + address + "', '" + cardType + "');");
+        }
+        else if (choice == 2) { //Add new Employee
+            // The new employee will have a Name, phone number, and and role
+            cout << "Enter Employee Name: ";
+            string name;
+            getline(cin, name);
+            cout << "Enter Employee Phone Number (e.g. 1234567890): ";
+            string phone;
+            getline(cin, phone);
+            cout << "Enter Employee Role: ";
+            string role;
+            getline(cin, role);
+            sql.WriteFile("INSERT INTO EMPLOYEE (Name, Phone, Role) VALUES ('" + name + "', '" + phone + "', '" + role + "');");
+        }
+        // more
+        else if (choice == 3) { //Add new Book
+            // The new book will have a name, location, genre, quantity, price, publisher, and author
+            cout << "Enter Book Name: ";
+            string name;
+            getline(cin, name);
+            cout << "Enter Book Location (e.g. C1): ";
+            string location;
+            getline(cin, location);
+            cout << "Enter Book Genre: ";
+            string genre;
+            getline(cin, genre);
+            cout << "Enter Book Quantity: ";
+            string quantity;
+            getline(cin, quantity);
+            cout << "Enter Book Price: ";
+            string price;
+            getline(cin, price);
+            cout << "Enter Book Publisher: ";
+            string publisher;
+            getline(cin, publisher);
+            cout << "Enter Book Author: ";
+            string author;
+            getline(cin, author);
+            sql.WriteFile("INSERT INTO BOOK (Name, Location, Genre, Quantity, Price, Pname, Aname) VALUES ('" + name + "', '" + location + "', '" + genre + "', '" + quantity + "', '" + price + "', '" + publisher + "', '" + author + "');");
+        }
+        else if (choice == 4) { //Add new Employee Shift
+            // The new employee shift will have an employee id, date, and time.
+            cout << "Enter Employee ID: ";
+            string id;
+            getline(cin, id);
+            cout << "Enter Shift Date (e.g. 2023-12-02): ";
+            string date;
+            getline(cin, date);
+            cout << "Enter Shift Time (e.g. 9:14:53): ";
+            string time;
+            getline(cin, time);
+            sql.WriteFile("INSERT INTO WORK_SCHEDULE (EempID, Date, Time) VALUES ('" + id + "', '" + date + "', '" + time + "');");
+        }
+        else if (choice == 5) { // Back
+            return;
+        } else {
+            cout << "Invalid choice. Please try again." << endl;
+        }
+    }
+}
+
+void UpdateCommands() {
+    while (true) {
+        cout << endl;
+        cout << "*** Manager Update Menu ***" << endl;
+        cout << "1. Update Employee Information" << endl;
+        cout << "2. Update Book Information" << endl;
+        cout << endl;
+        cout << "3. Back" << endl;
+        cout << endl;
+
+        string str;
+        getline(cin, str);
+        int choice = atoi(str.c_str());
+
+        if (choice == 1) { // Update Employee Information
+            cout << "Enter Employee ID: ";
+            string id;
+            getline(cin, id);
+            cout << "Enter Employee Name: ";
+            string name;
+            getline(cin, name);
+            cout << "Enter Employee Phone Number (e.g. 1234567890): ";
+            string phone;
+            getline(cin, phone);
+            cout << "Enter Employee Role: ";
+            string role;
+            getline(cin, role);
+            sql.WriteFile("UPDATE EMPLOYEE SET Name = '" + name + "', Phone = '" + phone + "', Role = '" + role + "' WHERE EmpID = '" + id + "';");
+        } else if (choice == 2) { // Update Book Information
+            cout << "Enter Book ID: ";
+            string id;
+            getline(cin, id);
+            cout << "Enter Book Name: ";
+            string name;
+            getline(cin, name);
+            cout << "Enter Book Location (e.g. C1): ";
+            string location;
+            getline(cin, location);
+            cout << "Enter Book Genre: ";
+            string genre;
+            getline(cin, genre);
+            cout << "Enter Book Quantity: ";
+            string quantity;
+            getline(cin, quantity);
+            cout << "Enter Book Price: ";
+            string price;
+            getline(cin, price);
+            cout << "Enter Book Publisher: ";
+            string publisher;
+            getline(cin, publisher);
+            cout << "Enter Book Author: ";
+            string author;
+            getline(cin, author);
+            sql.WriteFile("UPDATE BOOK SET Name = '" + name + "', Location = '" + location + "', Genre = '" + genre + "', Quantity = '" + quantity + "', Price = '" + price + "', Pname = '" + publisher + "', Aname = '" + author + "' WHERE BookID = '" + id + "';");
+        } else if (choice == 3) { // Back
+            return;
+        } else {
+            cout << "Invalid choice. Please try again." << endl;
+        }
+    }
+}
+
+void DeleteCommands() {
+    while (true) {
+        cout << endl;
+        cout << "*** Manager Delete Menu ***" << endl;
+        cout << "1. Delete Employee" << endl;
+        cout << "2. Delete Book" << endl;
+        cout << endl;
+        cout << "3. Back" << endl;
+        cout << endl;
+
+        string str;
+        getline(cin, str);
+        int choice = atoi(str.c_str());
+
+        if (choice == 1) { // Delete Employee
+            cout << "Enter Employee ID: ";
+            string id;
+            getline(cin, id);
+            sql.WriteFile("DELETE FROM WORK_SCHEDULE WHERE EempID = '" + id + "';");
+            sql.WriteFile("DELETE FROM EMPLOYEE WHERE EmpID = '" + id + "';");
+        } else if (choice == 2) { // Delete Book
+            cout << "Enter Book ID: ";
+            string id;
+            getline(cin, id);
+            sql.WriteFile("DELETE FROM REVIEWS WHERE BookID = '" + id + "';");
+            sql.WriteFile("DELETE FROM BOOK WHERE BookID = '" + id + "';");
+        } else if (choice == 3) { // Back
+            return;
+        } else {
+            cout << "Invalid choice. Please try again." << endl;
         }
     }
 }
